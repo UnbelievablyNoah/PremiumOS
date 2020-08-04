@@ -109,37 +109,21 @@ module.exports = class messageReactionAddEvent extends BaseEvent {
                 SEND_MESSAGES: true,
               });
 
-              if (
-                reaction.message.guild.roles.cache.find(
-                  (r) => r.name === ticket.dataValues.role1
-                )
-              ) {
-                channel.updateOverwrite(
-                  reaction.message.guild.roles.cache.find(
-                    (r) => r.name === ticket.dataValues.role1
-                  ).id, {
-                    VIEW_CHANNEL: true,
-                    SEND_MESSAGES: true,
-                  }
-                );
-              }
-              if (
-                reaction.message.guild.roles.cache.find(
-                  (r) => r.name === ticket.dataValues.role2
-                )
-              ) {
-                channel.updateOverwrite(
-                  reaction.message.guild.roles.cache.find(
-                    (r) => r.name === ticket.dataValues.role2
-                  ).id, {
-                    VIEW_CHANNEL: true,
-                    SEND_MESSAGES: true,
-                  }
-                );
-              }
+              if (ticket.dataValues.roles !== null) {
+                const roles = JSON.parse(JSON.stringify(ticket.dataValues.roles));
+                roles.forEach(r => {
+                  console.log(r);
+                  if (message.guild.roles.cache.find(ro => ro.id === r)) {
+                    channel.updateOverwrite(r, {
+                      VIEW_CHANNEL: true,
+                      SEND_MESSAGES: true,
+                    });
+                  };
+                });
+              };
               channel.send(supportEmbed);
-              member.send(dmEmbed);
               reaction.users.remove(user.id);
+              member.send(dmEmbed);
             });
         })();
       }
