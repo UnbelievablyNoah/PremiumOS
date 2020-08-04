@@ -12,6 +12,7 @@ module.exports = class MessageUpdateEvent extends BaseEvent {
     super("messageUpdate");
   }
   async run(bot, oldMessage, newMessage) {
+    if (oldMessage.channel.type == 'dm') return;
     let auto = await Auto.findOne({
       where: {
         guildId: oldMessage.guild.id,

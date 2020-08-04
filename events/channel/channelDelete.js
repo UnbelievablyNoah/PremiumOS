@@ -12,6 +12,7 @@ module.exports = class channelDelete extends BaseEvent {
     super("channelDelete");
   }
   async run(bot, channel) {
+    if (channel.type == 'dm') return;
     let auto = await Auto.findOne({
       where: {
         guildId: channel.guild.id,

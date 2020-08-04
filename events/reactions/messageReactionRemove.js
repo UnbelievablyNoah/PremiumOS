@@ -16,7 +16,7 @@ module.exports = class messageReactionRemoveEvent extends BaseEvent {
     });
 
     if (react) {
-      if (!user.bot) return;
+      if (user.bot) return;
       if (reaction.message.partial) {
         let role = reaction.message.guild.roles.cache.get(
           react.dataValues.role

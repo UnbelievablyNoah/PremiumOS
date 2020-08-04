@@ -17,6 +17,7 @@ module.exports = class MessageEvent extends BaseEvent {
   }
 
   async run(bot, message) {
+    if (message.channel.type == 'dm') return;
     let auto = await Auto.findOne({
       where: {
         guildId: message.guild.id,

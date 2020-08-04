@@ -12,6 +12,7 @@ module.exports = class ChannelCreate extends BaseEvent {
     super("channelCreate");
   }
   async run(bot, channel) {
+    if (channel.type == 'dm') return;
     let auto = await Auto.findOne({
       where: {
         guildId: channel.guild.id,

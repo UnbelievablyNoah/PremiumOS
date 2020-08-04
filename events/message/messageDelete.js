@@ -12,6 +12,7 @@ module.exports = class MessageDelete extends BaseEvent {
     super("messageDelete");
   }
   async run(bot, message) {
+    if (message.channel.type == 'dm') return;
     let auto = await Auto.findOne({
       where: {
         guildId: message.guild.id,
