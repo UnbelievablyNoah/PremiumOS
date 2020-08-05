@@ -20,37 +20,16 @@ module.exports = class TimezoneCommmand extends BaseCommand {
     }
 
     async run(bot, message, args) {
-        const botdata = await Bot.findOne({
-            where: {
-                botId: bot.user.id,
-                guildId: message.guild.id,
-            },
-        });
-        if (botdata) {
-            const prefix = botdata.dataValues.botPrefix;
-            const [cmdName, ...cmdArgs] = message.content
-                .slice(prefix.length)
-                .trim()
-                .split(/\s+/);
-            if (cmdName.toLowerCase() == 'timezone') {
-                const date = new Date();
-                console.log(date)
-                const toChange = new moment(date);
-                console.log(toChange)
+        const date = new Date();
+        const toChange = new moment(date);
+        if (!args.join(" ")) return message.channel.send('Provide a Country.');
 
-                if (!args.join(" ")) return message.channel.send('Provide a Country.');
-
-                const changed = await toChange.tz(args.join(" ")).format('h:m:sa z');
-                message.channel.send(`The time in ${args.join(" ")} is **${changed}**`);
-
-            } else if (cmdName.toLowerCase() == 'convert') {
-                const date = new Date();
-                const from = args[0];
-                const to = args[0];
-
-            }
-
-        }
+        const changed = await toChange.tz(args.join(" ")).format('h:m:sa z')
+            .catch((err) => {
+                message.channel.send('No timezone found for the following.')
+                return;
+            })
+        message.channel.send(`The time in ${args.join(" ")} is **${changed}**`);
 
     }
 };

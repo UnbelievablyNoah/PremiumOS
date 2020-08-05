@@ -418,6 +418,79 @@ module.exports = class SetupCommand extends BaseCommand {
                   });
                 });
               } else if (
+                collected.first().content.toLowerCase() === "remove"
+              ) {
+                (async () => {
+                  const found = await Support.findOne({
+                    where: {
+                      guildId: message.guild.id,
+                      botId: bot.user.id,
+                    },
+                  });
+                  if (found) {
+                    if (found.dataValues.roles !== null) {
+                      const roles = JSON.parse(JSON.stringify(found.dataValues.roles));
+                      if (!roles.length > 0) return message.channel.send('No roles found to remove.');
+                      const map = roles.map((r) => `<@&${r}>` + " : ``" + r + "``").join(', ');
+                      const removeEmbed = new MessageEmbed()
+                        .setAuthor(
+                          "Provide role id that you want to remove from the Support Ticket.",
+                          bot.user.displayAvatarURL()
+                        )
+                        .setDescription(map)
+                        .setColor(theme.dataValues.embedTheme);
+                      message.channel.send(removeEmbed).then((msg) => {
+                        msg.delete({
+                          timeout: 60000,
+                          reason: "It had to be done.",
+                        });
+                        message.channel
+                          .awaitMessages(filter, {
+                            max: 1,
+                            time: 60000,
+                            errors: ["time"],
+                          })
+                          .then((collected) => {
+                            if (
+                              collected.first().content.toLowerCase() ==
+                              "cancel"
+                            ) {
+                              message.channel.send("Cancelled the Prompt!");
+                            } else {
+                              const id = collected.first().content;
+                              if (roles.find(r => r === id)) {
+                                const removeData = roles
+                                  .map(function (item) {
+                                    return item;
+                                  })
+                                  .indexOf(id);
+                                roles.splice(removeData, 1);
+                                Support.update({
+                                  roles: roles
+                                }, {
+                                  where: {
+                                    guildId: message.guild.id,
+                                    botId: bot.user.id,
+                                  }
+                                }).then(() => {
+                                  message.channel.send('Successfully, removed the role id: ' +
+                                    "``" + id + "``!");
+                                })
+
+                              } else {
+                                message.channel.send('Invalid role id.');
+                              }
+                            }
+                          });
+                      });
+                    } else {
+                      message.channel.send('No roles found to remove.');
+                    }
+                  } else {
+                    message.channel.send('No roles found to remove.');
+                  }
+                })();
+              } else if (
                 collected.first().content.toLowerCase() === "category"
               ) {
                 const colourEmbed = new MessageEmbed()

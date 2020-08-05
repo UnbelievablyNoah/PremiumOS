@@ -51,7 +51,7 @@ module.exports = class messageReactionAddEvent extends BaseEvent {
         let role = reaction.message.guild.roles.cache.get(
           react.dataValues.role
         );
-        if (!role) return console.log("No role!");
+        if (!role) return;
         let member = reaction.message.guild.members.cache.get(user.id);
         if (role && member) {
           member.roles
@@ -111,9 +111,10 @@ module.exports = class messageReactionAddEvent extends BaseEvent {
 
               if (ticket.dataValues.roles !== null) {
                 const roles = JSON.parse(JSON.stringify(ticket.dataValues.roles));
+                if (!roles.length > 0) return;
                 roles.forEach(r => {
                   console.log(r);
-                  if (message.guild.roles.cache.find(ro => ro.id === r)) {
+                  if (reaction.message.guild.roles.cache.find(ro => ro.id === r)) {
                     channel.updateOverwrite(r, {
                       VIEW_CHANNEL: true,
                       SEND_MESSAGES: true,

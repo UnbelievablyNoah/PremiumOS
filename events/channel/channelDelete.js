@@ -1,6 +1,5 @@
 const fs = require("fs");
 const BaseEvent = require("../../utils/structures/BaseEvent");
-const Bot = require("../../Database/models/Bot");
 const {
   MessageEmbed
 } = require("discord.js");

@@ -15,7 +15,8 @@ module.exports = class GuildDeleteEvent extends BaseEvent {
         });
         const auto = await Auto.findOne({
             where: {
-                botId: bot.user.id
+                botId: bot.user.id,
+                guildId: guild.id
             }
         });
         const gData = await Guild.findOne({

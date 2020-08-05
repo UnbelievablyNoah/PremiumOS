@@ -3,8 +3,10 @@ const BaseCommand = require("../../utils/structures/BaseCommand");
 const Channel = require("../../Database/models/Channel");
 const Theme = require("../../Database/models/Theme");
 const Reaction = require("../../Database/models/Reaction");
-let emojiRoleMappings = new Map();
-const { MessageEmbed, MessageCollector } = require("discord.js");
+const {
+  MessageEmbed,
+  MessageCollector
+} = require("discord.js");
 module.exports = class EvalCommmand extends BaseCommand {
   constructor() {
     super(

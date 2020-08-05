@@ -2,7 +2,9 @@ const Discord = require("discord.js");
 const BaseCommand = require("../../utils/structures/BaseCommand");
 const Theme = require("../../Database/models/Theme");
 const Channel = require("../../Database/models/Channel");
-const { MessageEmbed } = require("discord.js");
+const {
+  MessageEmbed
+} = require("discord.js");
 module.exports = class PurgeCommmand extends BaseCommand {
   constructor() {
     super(
@@ -52,8 +54,8 @@ module.exports = class PurgeCommmand extends BaseCommand {
                     )
                     .setDescription(
                       "**Bulk Deleted** in <#" +
-                        message.channel.id +
-                        `>, ${number} messages has been deleted.`
+                      message.channel.id +
+                      `>, ${number} messages has been deleted.`
                     )
                     .setColor(theme.dataValues.embedTheme)
                     .setFooter(`Author ID: ${message.author.id}`)
@@ -68,7 +70,8 @@ module.exports = class PurgeCommmand extends BaseCommand {
                     modChannel.send(logEmbed);
                   }
                 })
-                .catch(console.error);
+            }).catch((err) => {
+              message.channel.send("Error while purging: **You can only bulk delete messages that are under 14 days old.**");
             });
           });
       } else {
