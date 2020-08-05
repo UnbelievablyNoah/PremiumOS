@@ -10,10 +10,12 @@ module.exports = class UploadCommmand extends BaseCommand {
 
         if (!message.member.hasPermission("KICK_MEMBERS")) return;
         var Attachment = (message.attachments).array();
-        if (args[0].startsWith("https")) {
-            message.channel.send({
-                files: [args[0]]
-            });
+        if (args[0]) {
+            if (args[0].startsWith("https")) {
+                message.channel.send({
+                    files: [args[0]]
+                });
+            }
         } else if (Attachment) {
             message.channel.send({
                 files: [Attachment[0].url]

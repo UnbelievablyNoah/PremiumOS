@@ -25,11 +25,13 @@ module.exports = class TimezoneCommmand extends BaseCommand {
         if (!args.join(" ")) return message.channel.send('Provide a Country.');
 
         const changed = await toChange.tz(args.join(" ")).format('h:m:sa z')
-            .catch((err) => {
-                message.channel.send('No timezone found for the following.')
-                return;
-            })
-        message.channel.send(`The time in ${args.join(" ")} is **${changed}**`);
+        console.log(changed);
+        console.log(toChange);
+        if (changed == toChange) {
+            message.channel.send(`Timezone not found!`);
+        } else {
+            message.channel.send(`The time in ${args.join(" ")} is **${changed}**`);
+        }
 
     }
 };

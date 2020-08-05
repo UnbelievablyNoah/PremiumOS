@@ -7,9 +7,6 @@ const BaseCommand = require("../../utils/structures/BaseCommand");
 const {
   MessageEmbed
 } = require("discord.js");
-const {
-  stripIndents
-} = require("common-tags");
 const info = new Map();
 const fun = new Map();
 const support = new Map();

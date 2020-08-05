@@ -8,9 +8,6 @@ const BaseCommand = require("../../utils/structures/BaseCommand");
 const {
   MessageEmbed
 } = require("discord.js");
-const {
-  stripIndents
-} = require("common-tags");
 
 module.exports = class KickCommmand extends BaseCommand {
   constructor() {

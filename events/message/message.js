@@ -7,6 +7,7 @@ const axios = require("axios");
 const Auto = require("../../Database/models/Auto");
 const Channel = require("../../Database/models/Channel");
 const Guild = require("../../Database/models/Guild");
+const AFK = require("../../Database/models/AFK");
 const ms = require('ms')
 const {
   MessageEmbed
@@ -36,6 +37,26 @@ module.exports = class MessageEvent extends BaseEvent {
         botId: bot.user.id
       }
     });
+
+    if (message.mentions.users.first()) {
+      if (message.author.bot) return;
+      const user = message.mentions.users.first();
+
+      (async () => {
+        const afk = await AFK.findOne({
+          where: {
+            userId: user.id
+          }
+        });
+        if (!afk) return;
+        if (afk.dataValues.status !== true) return;
+        const afkEmbed = new MessageEmbed()
+          .setAuthor(user.tag, user.avatarURL())
+          .setColor(theme.dataValues.embedTheme)
+          .setTitle(`${user.tag} is currently AFK (Away From Keyboard) or Not Available. Ping them later.`);
+        message.reply(afkEmbed);
+      })();
+    }
 
     if (auto) {
       const words = JSON.parse(JSON.stringify(auto.dataValues.words));
@@ -112,6 +133,9 @@ module.exports = class MessageEvent extends BaseEvent {
     }, 5000);
 
     if (gData) {
+      if (message.content == `<@!${bot.user.id}>`) {
+        message.channel.send(`Hey! My prefix is ` + "``" + gData.dataValues.botPrefix + "``");
+      }
       const prefix = gData.dataValues.botPrefix;
       if (message.author.bot) return;
       if (!message.content.startsWith(prefix)) return;

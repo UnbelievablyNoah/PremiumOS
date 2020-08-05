@@ -1,18 +1,13 @@
-const Discord = require("discord.js")
-const fs = require('fs')
-const Theme = require('../../Database/models/Theme')
-const request = require('node-superfetch');
 const BaseCommand = require('../../utils/structures/BaseCommand')
-const {
-    MessageEmbed
-} = require('discord.js')
+const emoji = require('discord-emoji-convert');
 
-module.exports = class AnimeCommmand extends BaseCommand {
+module.exports = class EmojifyCommmand extends BaseCommand {
     constructor() {
-        super('emojify', 'Fun', ['emoji'], '', '[command | alias]', [])
+        super('emojify', 'Fun', ['emoji'], 'Converts Text into Emojis.', '[command | alias]', [])
     }
 
     async run(bot, message, args) {
-
+        const convert = emoji.convert(args.join(" "));
+        message.channel.send(convert);
     }
 }

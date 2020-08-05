@@ -9,6 +9,7 @@ const Reaction = require("../../Database/models/Reaction");
 const Warning = require("../../Database/models/Warning");
 const Auto = require("../../Database/models/Auto");
 const Guild = require('../../Database/models/Guild');
+const AFK = require('../../Database/models/AFK');
 module.exports = class ReadyEvent extends BaseEvent {
   constructor() {
     super("ready");
@@ -33,6 +34,8 @@ module.exports = class ReadyEvent extends BaseEvent {
         Auto.sync();
         Guild.init(db);
         Guild.sync();
+        AFK.init(db);
+        AFK.sync();
       })
       .then(() => {
         console.log(bot.user.tag + " has logged in.");
