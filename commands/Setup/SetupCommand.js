@@ -46,7 +46,7 @@ module.exports = class SetupCommand extends BaseCommand {
     });
 
     fetch(
-      `https://bots.aquirty.com/api/validatation/${message.author.id}/${bot.user.id}`
+      `https://bots.aquirty.com/api/ownership-check/${message.author.id}/${bot.user.id}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -248,7 +248,7 @@ module.exports = class SetupCommand extends BaseCommand {
                   "To setup the following, read the Instructions Below."
                 )
                 .setDescription(
-                  "To setup **Category** - Type ``Category`` below.\nTo setup **Message** - Type ``Message`` below.\nTo setup **Support Type** - Type ``Type`` below."
+                  "To setup **Category** - Type ``Category`` below.\nTo setup **Message** - Type ``Message`` below.\nTo setup **Support Type** - Type ``Type`` below.\nTo add **Roles** to Support Tickets - Type ``Add`` below.\nTo remove **Roles** from from Support Tickets - Type ``Remove`` below."
                 )
                 .setColor(theme.dataValues.embedTheme)
                 .setFooter(
