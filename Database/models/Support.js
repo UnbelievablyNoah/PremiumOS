@@ -10,7 +10,8 @@ module.exports = class Support extends Model {
                 type: DataTypes.STRING
             },
             guildId: {
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                primaryKey: true
             },
             category: {
                 type: DataTypes.STRING

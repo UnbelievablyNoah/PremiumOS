@@ -10,7 +10,8 @@ module.exports = class Channel extends Model {
                 type: DataTypes.STRING
             },
             guildId: {
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                primaryKey: true
             },
             logChannel: {
                 type: DataTypes.STRING

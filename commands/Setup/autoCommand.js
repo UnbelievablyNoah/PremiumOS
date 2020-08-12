@@ -5,8 +5,6 @@ const BaseCommand = require("../../utils/structures/BaseCommand");
 const Bot = require("../../Database/models/Auto");
 const fetch = require("node-fetch");
 const Auto = require("../../Database/models/Auto");
-
-
 module.exports = class SetCommmand extends BaseCommand {
     constructor() {
         super(
@@ -27,8 +25,8 @@ module.exports = class SetCommmand extends BaseCommand {
             }
         })
         fetch(
-                `https://bots.aquirty.com/api/validatation/${message.author.id}/${bot.user.id}`
-            )
+            `https://bots.aquirty.com/api/ownership-check/${message.author.id}/${bot.user.id}`
+        )
             .then((res) => res.json())
             .then((data) => {
 
@@ -36,17 +34,9 @@ module.exports = class SetCommmand extends BaseCommand {
                 if (!args[0]) {
                     const hEmbed = new MessageEmbed()
                         .setAuthor('Auto-Moderation Setup', bot.user.displayAvatarURL())
-                        .addField('Auto-Mod', 'All Auto-Mod Settings')
-                        .addField('Words', 'auto Words [true/false]', true)
-                        .addField('Mentions', 'auto Mention [true/false]', true)
-                        .addField('Invite Links', 'auto Invite [true/false]', true)
-                        .addField('Logs', 'All Event Logs Settings')
-                        .addField('Member Logs', 'auto Member [true/false]', true)
-                        .addField('Message Logs', 'auto Message [true/false]', true)
-                        .addField('Channel Logs', 'auto Channel [true/false]', true)
-                        .addField('Role Logs', 'auto Role [true/false]', true)
+                        .addField('Auto-Mod', '**Words** - ``auto Words [true/false]``\n**Mentions** - ``auto Mention [true/false]``\n**Invite Links** - ``auto Invite [true/false]``')
+                        .addField('Logs', '**Member Logs** - ``auto Member [true/false]``\n**Message Logs** - ``auto Message [true/false]``\n**Channel Logs** - ``auto Message [true/false]``\n**Role Logs** - ``auto Role [true/false]``')
                         .setTimestamp();
-
                     return message.channel.send(hEmbed);
                 }
                 if (args[0].toLowerCase() == 'words') {

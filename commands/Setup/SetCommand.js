@@ -25,8 +25,8 @@ module.exports = class SetCommmand extends BaseCommand {
     });
 
     fetch(
-        `https://bots.aquirty.com/api/validatation/${message.author.id}/${bot.user.id}`
-      )
+      `https://bots.aquirty.com/api/ownership-check/${message.author.id}/${bot.user.id}`
+    )
       .then((res) => res.json())
       .then((data) => {
 
@@ -37,9 +37,9 @@ module.exports = class SetCommmand extends BaseCommand {
           const hEmbed = new MessageEmbed()
             .setAuthor('Bot Setup', bot.user.displayAvatarURL())
             .setTitle('Follow The Instructions below in order to change the Bot Settings')
-            .addField('Status', 'set status [Playing, Listening, Watching] [status]', true)
-            .addField('Prefix', 'set prefix [Prefix]', true)
-            .addField('Avatar', 'set avatar [url/attachment]', true)
+            .addField('Status', 'set status [Playing, Listening, Watching] [status]')
+            .addField('Prefix', 'set prefix [Prefix]')
+            .addField('Avatar', 'set avatar [url/attachment]')
             .setTimestamp();
 
           return message.channel.send(hEmbed);

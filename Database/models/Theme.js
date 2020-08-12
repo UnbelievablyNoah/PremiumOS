@@ -10,7 +10,8 @@ module.exports = class Theme extends Model {
                 type: DataTypes.STRING
             },
             guildId: {
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                primaryKey: true
             },
             embedTheme: {
                 type: DataTypes.STRING

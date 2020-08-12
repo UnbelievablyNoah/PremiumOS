@@ -10,7 +10,8 @@ module.exports = class Reaction extends Model {
                 type: DataTypes.STRING
             },
             guildId: {
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                primaryKey: true
             },
             messageId: {
                 type: DataTypes.STRING

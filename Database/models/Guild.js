@@ -10,7 +10,8 @@ module.exports = class Guild extends Model {
                 type: DataTypes.STRING
             },
             guildId: {
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                primaryKey: true
             },
             botPrefix: {
                 type: DataTypes.STRING,

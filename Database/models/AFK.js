@@ -7,7 +7,8 @@ module.exports = class AFK extends Model {
     static init(sequelize) {
         return super.init({
             userId: {
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                primaryKey: true
             },
             status: {
                 type: DataTypes.BOOLEAN

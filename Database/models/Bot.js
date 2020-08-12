@@ -7,7 +7,8 @@ module.exports = class Bot extends Model {
     static init(sequelize) {
         return super.init({
             botId: {
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                primaryKey: true
             },
             botStatus: {
                 type: DataTypes.STRING,

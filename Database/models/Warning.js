@@ -13,7 +13,8 @@ module.exports = class Warning extends Model {
                 type: DataTypes.STRING
             },
             userId: {
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                primaryKey: true
             },
             warnNo: {
                 type: DataTypes.STRING
