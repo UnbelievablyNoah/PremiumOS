@@ -3,6 +3,7 @@ const Bot = require("../../Database/models/Bot");
 const Theme = require("../../Database/models/Theme");
 const Guild = require("../../Database/models/Guild");
 const Auto = require("../../Database/models/Auto");
+const axios = require('axios')
 module.exports = class GuildCreateEvent extends BaseEvent {
     constructor() {
         super("guildCreate");
@@ -32,33 +33,48 @@ module.exports = class GuildCreateEvent extends BaseEvent {
                 guildId: guild.id
             }
         });
-        if (!data) {
-            Bot.create({
-                botId: bot.user.id
+        fetch(
+                `https://bots.aquirty.com/api/ownership-check/${guild.owner.user.id}/${bot.user.id}`
+            )
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.valid !== "true") {
+                    guild.leave();
+                    return;
+                }
+                if (data.message) {
+                    guild.leave();
+                    return;
+                }
+                if (!data) {
+                    Bot.create({
+                        botId: bot.user.id
+                    });
+                    if (!gData) {
+                        Guild.create({
+                            botId: bot.user.id,
+                            guildId: guild.id
+                        });
+
+                    }
+                    if (!theme) {
+                        Theme.create({
+                            botId: bot.user.id,
+                            guildId: guild.id,
+                            embedTheme: '#FFFFFF'
+                        });
+                    }
+                    if (!auto) {
+                        Auto.create({
+                            botId: bot.user.id,
+                            guildId: guild.id,
+                            words: words,
+                        });
+                        return;
+                    }
+
+                }
             });
-            if (!gData) {
-                Guild.create({
-                    botId: bot.user.id,
-                    guildId: guild.id
-                });
 
-            }
-            if (!theme) {
-                Theme.create({
-                    botId: bot.user.id,
-                    guildId: guild.id,
-                    embedTheme: '#FFFFFF'
-                });
-            }
-            if (!auto) {
-                Auto.create({
-                    botId: bot.user.id,
-                    guildId: guild.id,
-                    words: words,
-                });
-                return;
-            }
-
-        }
     }
 };
