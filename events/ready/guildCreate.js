@@ -3,7 +3,7 @@ const Bot = require("../../Database/models/Bot");
 const Theme = require("../../Database/models/Theme");
 const Guild = require("../../Database/models/Guild");
 const Auto = require("../../Database/models/Auto");
-const axios = require('axios')
+const fetch = require('node-fetch')
 module.exports = class GuildCreateEvent extends BaseEvent {
     constructor() {
         super("guildCreate");
