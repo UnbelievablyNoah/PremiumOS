@@ -38,9 +38,9 @@ module.exports = class InfoCommmand extends BaseCommand {
 
     let infoEmbed = new MessageEmbed()
       .setAuthor(bot.user.tag, bot.user.displayAvatarURL())
-      .setDescription("**POWERED BY SKYRON CLOUD**")
+      .setDescription("[Powered By Aquirty](https://bots.aquirty.com)")
       .addField("Name", bot.user.username, true)
-      .addField("Version", "V5.0X", true)
+      .addField("Version", "BotOS V1", true)
       .addField("Server/s", bot.guilds.cache.size, true)
       .addField(
         "Uptime",
@@ -50,14 +50,13 @@ module.exports = class InfoCommmand extends BaseCommand {
       .addField(
         "Created On",
         message.guild.createdAt.toUTCString().substr(0, 16) +
-          `(${checkDays(bot.user.createdAt)})`,
+        `(${checkDays(bot.user.createdAt)})`,
         true
       )
       .setColor(theme.dataValues.embedTheme)
       .setFooter("Bot Information", message.author.displayAvatarURL())
       .setTimestamp()
       .setThumbnail(bot.user.displayAvatarURL())
-      .setImage(theme.dataValues.skyron);
 
     return message.channel.send(infoEmbed);
   }

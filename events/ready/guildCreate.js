@@ -47,8 +47,7 @@ module.exports = class GuildCreateEvent extends BaseEvent {
                 Theme.create({
                     botId: bot.user.id,
                     guildId: guild.id,
-                    embedTheme: '#FFFFFF',
-                    skyron: 'https://media.discordapp.net/attachments/710606999712301109/714893613271744553/unknown.png?width=1442&height=252'
+                    embedTheme: '#FFFFFF'
                 });
             }
             if (!auto) {

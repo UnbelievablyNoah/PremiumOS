@@ -46,8 +46,8 @@ module.exports = class SetupCommand extends BaseCommand {
     });
 
     fetch(
-      `https://bots.aquirty.com/api/ownership-check/${message.author.id}/${bot.user.id}`
-    )
+        `https://bots.aquirty.com/api/ownership-check/${message.author.id}/${bot.user.id}`
+      )
       .then((res) => res.json())
       .then((data) => {
 
@@ -120,7 +120,6 @@ module.exports = class SetupCommand extends BaseCommand {
                               Theme.create({
                                 guildId: message.guild.id,
                                 botId: bot.user.id,
-                                skyron: "-",
                                 embedTheme: hexcode,
                                 welcome: "-",
                               }).then(() => {
@@ -200,7 +199,6 @@ module.exports = class SetupCommand extends BaseCommand {
                               Theme.create({
                                 guildId: message.guild.id,
                                 botId: bot.user.id,
-                                skyron: "-",
                                 embedTheme: "-",
                                 welcome: image,
                               }).then(() => {
@@ -519,8 +517,8 @@ module.exports = class SetupCommand extends BaseCommand {
                           } else {
                             const category = message.guild.channels.cache.find(
                               (c) =>
-                                c.name.toLowerCase() == collected.first().content.toLowerCase() &&
-                                c.type == "category"
+                              c.name.toLowerCase() == collected.first().content.toLowerCase() &&
+                              c.type == "category"
                             );
                             if (!category)
                               return message.channel.send(
@@ -1073,11 +1071,11 @@ module.exports = class SetupCommand extends BaseCommand {
                         );
                       const emoji1 = message.guild.emojis.cache.find(
                         (emoji) =>
-                          emoji.name.toLowerCase() === emojit.toLowerCase()
+                        emoji.name.toLowerCase() === emojit.toLowerCase()
                       );
                       const emoji2 = message.guild.emojis.cache.find(
                         (emoji) =>
-                          emoji.name.toLowerCase() === emojic.toLowerCase()
+                        emoji.name.toLowerCase() === emojic.toLowerCase()
                       );
                       Bot.update({
                         ideaTicket: emoji1.id,

@@ -18,9 +18,6 @@ module.exports = class Theme extends Model {
             },
             welcome: {
                 type: DataTypes.STRING
-            },
-            skyron: {
-                type: DataTypes.STRING
             }
 
         }, {
