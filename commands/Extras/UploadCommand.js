@@ -8,7 +8,7 @@ module.exports = class UploadCommmand extends BaseCommand {
 
     async run(bot, message, args) {
 
-        if (!message.member.hasPermission("KICK_MEMBERS")) return;
+        if (!message.member.hasPermission("ADMINISTRATOR")) return;
         var Attachment = (message.attachments).array();
         if (args[0]) {
             if (args[0].startsWith("https")) {
