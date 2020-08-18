@@ -2,7 +2,6 @@ const {
   MessageEmbed
 } = require("discord.js");
 const BaseCommand = require("../../utils/structures/BaseCommand");
-const Bot = require("../../Database/models/Bot");
 const fetch = require("node-fetch");
 
 module.exports = class SetCommmand extends BaseCommand {
@@ -18,21 +17,13 @@ module.exports = class SetCommmand extends BaseCommand {
   }
 
   async run(bot, message, args) {
-    let botdata = await Bot.findOne({
-      where: {
-        botId: bot.user.id
-      },
-    });
-
     fetch(
-      `https://bots.aquirty.com/api/ownership-check/${message.author.id}/${bot.user.id}`
-    )
+        `https://bots.aquirty.com/api/ownership-check/${message.author.id}/${bot.user.id}`
+      )
       .then((res) => res.json())
       .then((data) => {
-
         if (data.valid !== "true") return message.channel.send("You're aren't allowed to use this command.");
-        if (!botdata) return message.channel.send("Bot isn't verified.");
-
+        if (data.message) return message.channel.send("You're aren't allowed to use this command.");
         if (!args[0]) {
           const hEmbed = new MessageEmbed()
             .setAuthor('Bot Setup', bot.user.displayAvatarURL())

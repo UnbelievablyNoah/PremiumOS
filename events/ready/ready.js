@@ -56,7 +56,7 @@ module.exports = class ReadyEvent extends BaseEvent {
             }, 10000);
           } else {
             setInterval(async () => {
-              let statusList = ["BotS", "with Aquirty"];
+              let statusList = ["BotOS", "with Aquirty"];
               var status =
                 statusList[Math.floor(Math.random() * statusList.length)];
               bot.user.setActivity(status, {

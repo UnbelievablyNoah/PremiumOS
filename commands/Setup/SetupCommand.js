@@ -52,6 +52,7 @@ module.exports = class SetupCommand extends BaseCommand {
       .then((data) => {
 
         if (data.valid !== "true") return message.channel.send("You're aren't allowed to use this command.");
+        if (data.message) return message.channel.send("You're aren't allowed to use this command.");
         if (gData) {
           const filter = (m) => m.author.id === message.author.id;
 

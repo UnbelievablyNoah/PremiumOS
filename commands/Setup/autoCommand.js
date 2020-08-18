@@ -25,12 +25,13 @@ module.exports = class SetCommmand extends BaseCommand {
             }
         })
         fetch(
-            `https://bots.aquirty.com/api/ownership-check/${message.author.id}/${bot.user.id}`
-        )
+                `https://bots.aquirty.com/api/ownership-check/${message.author.id}/${bot.user.id}`
+            )
             .then((res) => res.json())
             .then((data) => {
 
                 if (data.valid !== "true") return message.channel.send("You're aren't allowed to use this command.");
+                if (data.message) return message.channel.send("You're aren't allowed to use this command.");
                 if (!args[0]) {
                     const hEmbed = new MessageEmbed()
                         .setAuthor('Auto-Moderation Setup', bot.user.displayAvatarURL())
